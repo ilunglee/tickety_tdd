@@ -1,0 +1,4 @@
+= simple_form_for @ticket, html: {class: "form-horizontal"}, remote: true do |f|
+  = f.input :title, label: "ticket title"
+  = f.input :body, label: "ticket description"
+  = f.submit (@ticket.persisted? ? "Update" : "Save")

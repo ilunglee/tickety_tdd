@@ -20,8 +20,9 @@ feature "Creating a Ticket" do
 
   it "doesn't create an title with empty title" do
     visit new_ticket_path
-    fill_in "ticket_title", with: ""
-    fill_in "ticket_body", with: "some valid body"
+    save_and_open_page
+    fill_in "ticket title", with: ""
+    fill_in "ticket body", with: "some valid body"
     click_on "Save"
     expect(page).to have_text(/must have title/i)
     expect(Ticket.count).to eq(0)

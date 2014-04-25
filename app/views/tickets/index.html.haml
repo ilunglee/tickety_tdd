@@ -1,3 +1,18 @@
+/ Modal
+/ Button trigger modal
+%button.btn.btn-primary{"data-target" => "#myModal", "data-toggle" => "modal"}
+  New Ticket
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} x
+        %h4#myModalLabel.modal-title Create a New Ticket
+      .modal-body
+        = simple_form_for @ticket, html: {class: "form-horizontal"}, remote: true do |f|
+          = f.input :title, label: "ticket title"
+          = f.input :body, label: "ticket description"
+          = f.submit (@ticket.persisted? ? "Update" : "Save")
 %h1 Listing all the tickets
 .ticket-container
   - @tickets.each do |ticket|
