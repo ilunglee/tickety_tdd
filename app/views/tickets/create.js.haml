@@ -1,0 +1,12 @@
+$(".ticket-container").prepend("#{j render 'ticket', ticket: @ticket}");
+$("##{dom_id(@ticket)}").hide().fadeIn(500);
+
+$(".modal-dialog").find(".close").click();
+$(".modal-dialog").find("textarea").val("");
+$(".modal-dialog").find("input[text]").val("");
+
+
+
+/ - @answer = @question.answers.new
+/ $("#answer-form").html("#{j render 'form'}");
+/ $("#answer_body").val("");

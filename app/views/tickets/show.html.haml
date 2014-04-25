@@ -1,0 +1,9 @@
+/ = debug @ticket # for debugging 
+%h1= @ticket.title
+%p= @ticket.body
+%p= formatted_date(@ticket.created_at)
+
+
+= link_to "edit", edit_ticket_path(@ticket)
+%br/
+= link_to "delete", @ticket, method: :delete, data: {confirm: "are you sure?"}

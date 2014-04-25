@@ -1,0 +1,14 @@
+%div{id: dom_id(@ticket)}
+  %h2= link_to @ticket.title, @ticket
+  / default will be ticket_path if we pass in ticket
+  %p= @ticket.body
+  %p
+    Created On: #{formatted_date(@ticket.created_at)}
+  %p
+    Updated On: #{formatted_date(@ticket.updated_at)}
+  - if ticket.status
+    %p= button_to "Mark Un-Resolved", ticket_path(ticket, :ticket => { :status => 0 }, page: "index"), method: :patch, remote: true, class: "btn btn-danger btn-status"
+  - else
+    %p= button_to "Mark Resolved", ticket_path(ticket, :ticket => { :status => 1 }, page: "index"), method: :patch, remote: true, class: "btn btn-success btn-status"
+  %hr/
+

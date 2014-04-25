@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %title Tickety
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    .container
+      - if flash[:notice]
+        %h3.bg-success= flash[:notice]
+      - if flash[:error]
+        %h3.bg-danger= flash[:notice]
+    .container
+      %br/
+      = link_to "Home", tickets_path, class: "btn btn-default"
+      / = link_to "New", new_ticket_path, class: "btn btn-default"
+      / Button trigger modal
+      %button.btn.btn-primary{"data-target" => "#myModal", "data-toggle" => "modal"}
+        New Ticket
+      / Modal
+      #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+              %h4#myModalLabel.modal-title Create a New Ticket
+            .modal-body
+              = simple_form_for @ticket, html: {class: "form-horizontal"}, remote: true do |f|
+                = f.input :title, label: "ticket title"
+                = f.input :body, label: "ticket description"
+                = f.submit (@ticket.persisted? ? "Update" : "Save")
+                
+      - if user_signed_in?
+        %span
+          Hello #{current_user.full_name}
+        = link_to "Sign Out", destroy_user_session_path, class: "btn btn-default", method: :delete
+      - else
+        = link_to "Sign In", new_user_session_path, class: "btn btn-default"
+      = yield
